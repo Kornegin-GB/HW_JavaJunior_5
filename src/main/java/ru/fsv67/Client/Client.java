@@ -27,6 +27,10 @@ public class Client {
                     if (Objects.equals("Сервер отключен", outMessage)) {
                         System.exit(0);
                     }
+                    if (Objects.equals("Соединение прервано администратором", outMessage)) {
+                        socketWrapper.getOutput().println("q");
+                        System.exit(0);
+                    }
                 }
             }).start();
 

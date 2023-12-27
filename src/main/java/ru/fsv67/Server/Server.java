@@ -68,6 +68,7 @@ public class Server {
 
                     String destinationUser = getUserName(clientMessage);
                     ServerSocketWrapper destination = null;
+
                     if (clientMessage.charAt(0) == '@') {
                         destination = clients.get(destinationUser.toLowerCase());
                     }
@@ -86,6 +87,13 @@ public class Server {
                             output.println("Сервер отключен");
                             System.out.println("Сервер отключен");
                             System.exit(0);
+                        }
+                        if (Objects.equals("kick", clientMessage.split(" ")[0])) {
+                            destination = clients.get(clientMessage.split(" ")[1]);
+                            destination.getOutput().println("Соединение прервано администратором");
+                            destination.getInput().close();
+                            destination.getOutput().close();
+                            destination.getSocket().close();
                         }
                     }
 
